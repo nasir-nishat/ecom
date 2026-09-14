@@ -1,5 +1,7 @@
 # Agentic E-Commerce
 
+**Live demo:** https://agentic-ecom.mehonotforlife.workers.dev (demo data · moving to https://ecom.nasirnishat.com)
+
 Ultra-lightweight, open-source e-commerce built for **AI shopping agents** (agentic commerce), **Generative Engine Optimization** (GEO) and classic **SEO** — without giving up a fast, normal storefront for humans.
 
 > This README doubles as the working spec for any AI coding agent touching the repo. Sections 6–8 are the rules; everything else is what exists today.
@@ -222,6 +224,20 @@ Ratings shown on cards/PDP come from `products.rating` / `review_count` (aggrega
 - RLS: public read of active products/categories; admins full write; anyone can insert an inquiry, only admins read them. Grants included (PostgREST needs both).
 
 ## 10. Deploy
+
+### Cloudflare Workers (how the public demo is hosted)
+
+```bash
+pnpm deploy:cf        # = DEPLOY_TARGET=cloudflare astro build --mode cloudflare && wrangler deploy
+pnpm preview:cf       # run the Workers build locally in workerd
+```
+
+- `astro.config.mjs` picks the adapter from `DEPLOY_TARGET` (`@astrojs/cloudflare` vs the default `@astrojs/node`), so local dev stays on Node.
+- Build-time public vars come from `.env.cloudflare` (committed, nothing secret); runtime vars/bindings from `wrangler.jsonc`. Secrets: `wrangler secret put HCAPTCHA_SECRET` etc.
+- Custom domain: uncomment `routes` in `wrangler.jsonc` — the zone must live in the same Cloudflare account as the Worker; wrangler creates the DNS record.
+- Workers have no disk, so `STORAGE_DRIVER=local` cannot persist uploads there — use `hostinger` (or a future Supabase Storage driver).
+
+### Other hosts
 
 - **App:** any Node host (`pnpm build` → `node dist/server/entry.mjs`), Vercel/Netlify via their Astro adapters (swap `@astrojs/node`), or a VPS. Set `PUBLIC_SITE_URL` to the real domain.
 - **Database:** hosted Supabase → `supabase link` + `supabase db push` (never run `seed.sql` in production). Enable hCaptcha under Auth → Bot protection.

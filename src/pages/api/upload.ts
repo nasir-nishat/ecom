@@ -1,7 +1,6 @@
 import type { APIRoute } from 'astro';
 import { MEDIA_MAX_BYTES, MEDIA_MIME } from '../../config/constants';
 import { error, json } from '../../lib/http';
-import { getStorageDriver } from '../../lib/storage-driver';
 import { isDemoMode } from '../../lib/demo';
 
 /** Admin-only (enforced in src/middleware.ts). Accepts multipart `file`, returns { url }. */
@@ -14,6 +13,7 @@ export const POST: APIRoute = async ({ request }) => {
   if (file.size > MEDIA_MAX_BYTES) return error('File too large', 413);
 
   try {
+    const { getStorageDriver } = await import('../../lib/storage-driver');
     const url = await getStorageDriver().uploadFile(file);
     return json({ url }, { status: 201 });
   } catch (e) {

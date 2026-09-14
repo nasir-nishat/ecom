@@ -30,3 +30,6 @@ supabase/.env
 
 # claude code local permissions (keep commands/ tracked)
 .claude/settings.local.json
+
+# cloudflare
+.wrangler/

@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "agentic-ecom",
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": { "directory": "./dist", "binding": "ASSETS" },
+  "observability": { "enabled": true },
+  // Public demo. Custom domain — requires the nasirnishat.com zone in the SAME Cloudflare account;
+  // wrangler then creates the DNS record automatically. Until then the Worker serves on *.workers.dev.
+  // "routes": [{ "pattern": "ecom.nasirnishat.com", "custom_domain": true }],
+  "vars": {
+    "PUBLIC_SITE_URL": "https://ecom.nasirnishat.com",
+    "PUBLIC_DEMO_MODE": "on",
+    "STORAGE_DRIVER": "hostinger"
+  }
+}

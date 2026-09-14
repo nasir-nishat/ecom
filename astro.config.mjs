@@ -3,6 +3,7 @@ import { defineConfig, envField } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import node from '@astrojs/node';
+import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,7 +13,8 @@ export default defineConfig({
   // SSR by default so product pages always reflect live price/stock.
   // Opt individual static pages in with `export const prerender = true`.
   output: 'server',
-  adapter: node({ mode: 'standalone' }),
+  // Node for local dev / VPS; `DEPLOY_TARGET=cloudflare` (see `build:cf`) targets Cloudflare Workers.
+  adapter: process.env.DEPLOY_TARGET === 'cloudflare' ? cloudflare({ imageService: 'compile' }) : node({ mode: 'standalone' }),
 
   integrations: [react()],
   vite: { plugins: [tailwindcss()] },
