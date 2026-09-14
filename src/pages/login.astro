@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AuthForm from '../components/common/AuthForm';
+import { ROUTES } from '../config/constants';
+const next = Astro.url.searchParams.get('next') ?? '/';
+---
+<BaseLayout title="Sign in" noindex>
+  <div class="card bg-base-100 border border-base-300 max-w-sm mx-auto">
+    <div class="card-body">
+      <h1 class="card-title">Sign in</h1>
+      <AuthForm client:load mode="login" next={next} />
+      <p class="text-sm text-center mt-2">No account? <a href={ROUTES.register} class="link">Create one</a></p>
+    </div>
+  </div>
+</BaseLayout>

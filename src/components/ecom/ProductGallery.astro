@@ -1,0 +1,26 @@
+---
+interface Props { images: string[]; alt: string }
+const { images, alt } = Astro.props;
+---
+{images.length === 0 ? (
+  <div class="aspect-square rounded-box bg-base-200 grid place-items-center opacity-40">No image</div>
+) : (
+  <div class="space-y-2">
+    <div class="carousel w-full rounded-box aspect-square bg-base-200">
+      {images.map((src, i) => (
+        <div id={`slide-${i}`} class="carousel-item w-full">
+          <img src={src} alt={`${alt} – image ${i + 1}`} class="size-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} />
+        </div>
+      ))}
+    </div>
+    {images.length > 1 && (
+      <div class="flex gap-2 overflow-x-auto">
+        {images.map((src, i) => (
+          <a href={`#slide-${i}`} class="size-16 shrink-0 rounded overflow-hidden border border-base-300">
+            <img src={src} alt="" class="size-full object-cover" loading="lazy" />
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+)}

@@ -1,0 +1,58 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/fraunces";
+
+/* daisyUI — ready-made component classes (btn, card, navbar, drawer, …).
+   Docs: https://daisyui.com/components/  Theme generator: https://daisyui.com/theme-generator/ */
+@plugin "daisyui" {
+  themes: false;
+}
+
+/* Single store theme: sage + cream, no shadows/depth. Change colours here only. */
+@plugin "daisyui/theme" {
+  name: "store";
+  default: true;
+  color-scheme: light;
+
+  --color-base-100: #ffffff;
+  --color-base-200: #f6f4ee;
+  --color-base-300: #e6e2d6;
+  --color-base-content: #1c231b;
+
+  --color-primary: #5f7f4f;
+  --color-primary-content: #ffffff;
+  --color-secondary: #e9e2d2;
+  --color-secondary-content: #1c231b;
+  --color-accent: #b7472a;
+  --color-accent-content: #ffffff;
+  --color-neutral: #1c231b;
+  --color-neutral-content: #f6f4ee;
+
+  --color-info: #4f6f8f;
+  --color-info-content: #ffffff;
+  --color-success: #4f7f5f;
+  --color-success-content: #ffffff;
+  --color-warning: #d9a441;
+  --color-warning-content: #1c231b;
+  --color-error: #b7472a;
+  --color-error-content: #ffffff;
+
+  --radius-selector: 2rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+}
+
+@layer base {
+  body { font-family: var(--font-sans); }
+  .font-display { font-family: var(--font-display); font-variation-settings: "opsz" 144, "SOFT" 50; }
+}

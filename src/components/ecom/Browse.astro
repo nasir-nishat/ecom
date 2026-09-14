@@ -1,0 +1,48 @@
+---
+import ProductCard from './ProductCard.astro';
+import { listProducts, type ListOpts } from '../../lib/catalog';
+import { ROUTES } from '../../config/constants';
+import type { Category } from '../../types/ecom';
+
+/** Filtered/sorted product listing (search, category, sale) with pagination. */
+interface Props { categories: Category[]; q?: string; category?: string; sale: boolean; sort?: ListOpts['sort']; page: number }
+const { categories, q, category, sale, sort, page } = Astro.props;
+
+const { items, total, pageSize } = await listProducts({ q, category, sale, sort, page });
+const pages = Math.ceil(total / pageSize);
+const title = q ? `Results for “${q}”` : sale ? 'On sale' : (categories.find((c) => c.id === category)?.name ?? 'All products');
+const link = (p: number) => { const u = new URL(Astro.url); u.searchParams.set('page', String(p)); return u.pathname + u.search; };
+const SORTS: [NonNullable<ListOpts['sort']>, string][] = [['new', 'Newest'], ['popular', 'Most popular'], ['price_asc', 'Price: low to high'], ['price_desc', 'Price: high to low']];
+---
+<div class="breadcrumbs text-sm"><ul><li><a href="/">Home</a></li><li>{title}</li></ul></div>
+
+<div class="flex flex-wrap items-center justify-between gap-3 my-4">
+  <h1 class="font-display text-3xl font-medium">{title} <span class="text-base font-sans text-base-content/50">({total})</span></h1>
+  <form method="get" class="text-sm">
+    {q && <input type="hidden" name="q" value={q} />}
+    {category && <input type="hidden" name="category" value={category} />}
+    {sale && <input type="hidden" name="sale" value="1" />}
+    <select name="sort" class="select select-sm border-base-300" onchange="this.form.submit()" aria-label="Sort">
+      {SORTS.map(([v, l]) => <option value={v} selected={(sort ?? 'new') === v}>{l}</option>)}
+    </select>
+  </form>
+</div>
+
+<nav class="flex gap-2 overflow-x-auto pb-4" aria-label="Categories">
+  <a href={ROUTES.shop} class:list={['btn btn-sm', category ? 'btn-ghost' : 'btn-primary']}>All</a>
+  {categories.map((c) => <a href={ROUTES.category(c.id)} class:list={['btn btn-sm', category === c.id ? 'btn-primary' : 'btn-ghost']}>{c.name}</a>)}
+</nav>
+
+{items.length === 0 ? (
+  <p class="opacity-60 py-16 text-center">No products found.</p>
+) : (
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">{items.map((p) => <ProductCard product={p} />)}</div>
+)}
+
+{pages > 1 && (
+  <div class="join flex justify-center mt-8">
+    {page > 1 && <a href={link(page - 1)} class="join-item btn btn-sm">«</a>}
+    <span class="join-item btn btn-sm btn-disabled">Page {page} / {pages}</span>
+    {page < pages && <a href={link(page + 1)} class="join-item btn btn-sm">»</a>}
+  </div>
+)}

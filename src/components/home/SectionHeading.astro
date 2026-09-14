@@ -1,0 +1,9 @@
+---
+import Icon from '../common/Icon.astro';
+interface Props { title: string; href?: string; linkLabel?: string }
+const { title, href, linkLabel = 'View all' } = Astro.props;
+---
+<div class="flex items-end justify-between gap-4 mb-5">
+  <h2 class="font-display text-2xl sm:text-3xl font-medium">{title}</h2>
+  {href && <a href={href} class="link link-hover text-sm text-primary inline-flex items-center gap-1">{linkLabel} <Icon name="ArrowRight" size={14} /></a>}
+</div>

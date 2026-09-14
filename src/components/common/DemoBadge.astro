@@ -1,0 +1,8 @@
+---
+import { isDemoMode } from '../../lib/demo';
+---
+{isDemoMode() && (
+  <span class="badge badge-warning badge-sm gap-1" title="Running on src/data/demo-catalog.json — connect Supabase via prompts/setup/01 to go live">
+    Demo data
+  </span>
+)}

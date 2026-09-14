@@ -1,0 +1,51 @@
+---
+import '../styles/global.css';
+import { ROUTES, SITE } from '../config/constants';
+import DemoBadge from '../components/common/DemoBadge.astro';
+
+interface Props { title: string }
+const { title } = Astro.props;
+const viewer = Astro.locals.viewer;
+const nav = [
+  { href: ROUTES.admin, label: 'Dashboard' },
+  { href: ROUTES.adminProducts, label: 'Products' },
+];
+---
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>{title} · Admin · {SITE.name}</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body class="min-h-dvh bg-base-200">
+    <div class="drawer lg:drawer-open">
+      <input id="admin-drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content flex flex-col">
+        <header class="navbar bg-base-100 border-b border-base-300 lg:hidden">
+          <label for="admin-drawer" class="btn btn-ghost btn-sm">☰</label>
+          <span class="font-semibold px-2">{title}</span>
+          <DemoBadge />
+        </header>
+        <main class="p-4 lg:p-8 flex-1">
+          <h1 class="text-2xl font-semibold mb-6 hidden lg:block">{title}</h1>
+          <slot />
+        </main>
+      </div>
+      <aside class="drawer-side z-40">
+        <label for="admin-drawer" class="drawer-overlay"></label>
+        <div class="menu bg-base-100 min-h-full w-64 p-4 border-r border-base-300">
+          <a href={ROUTES.home} class="font-bold text-lg px-2 mb-4">{SITE.name}</a>
+          <div class="px-2 mb-2"><DemoBadge /></div>
+          <ul class="menu-vertical w-full">
+            {nav.map((n) => (
+              <li><a href={n.href} class:list={{ 'menu-active': Astro.url.pathname === n.href }}>{n.label}</a></li>
+            ))}
+          </ul>
+          <div class="mt-auto text-xs opacity-60 px-2 truncate">{viewer?.user?.email}</div>
+        </div>
+      </aside>
+    </div>
+  </body>
+</html>

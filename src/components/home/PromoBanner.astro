@@ -1,0 +1,26 @@
+---
+import { PROMO } from '../../config/constants';
+import Icon from '../common/Icon.astro';
+import type { Product } from '../../types/ecom';
+
+interface Props { product?: Product }
+const { product } = Astro.props;
+---
+<section class="rounded-box bg-secondary overflow-hidden grid md:grid-cols-2 items-center">
+  <div class="p-8 sm:p-12 space-y-4">
+    <p class="text-sm font-medium text-primary">{PROMO.eyebrow}</p>
+    <h2 class="font-display text-4xl sm:text-5xl font-medium">{PROMO.title}</h2>
+    <p class="text-base-content/70 max-w-sm">{PROMO.text}</p>
+    <a href={PROMO.cta.href} class="btn btn-primary">{PROMO.cta.label} <Icon name="ArrowRight" size={16} /></a>
+  </div>
+  <div class="relative min-h-56 md:min-h-full">
+    {product && (
+      <a href={`/product/${product.slug}`} class="absolute inset-6 md:inset-8 rounded-box overflow-hidden">
+        <img src={product.images[0]} alt={product.title} loading="lazy" class="size-full object-cover" />
+        {product.compare_at_price && (
+          <span class="badge badge-primary badge-lg absolute top-3 left-3 font-semibold">-{Math.round((1 - product.price / product.compare_at_price) * 100)}%</span>
+        )}
+      </a>
+    )}
+  </div>
+</section>

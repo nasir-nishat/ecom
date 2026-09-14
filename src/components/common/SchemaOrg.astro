@@ -1,0 +1,10 @@
+---
+import { organizationSchema, toGraph, websiteSchema, type JsonLd } from '../../lib/geo-schema';
+
+interface Props {
+  /** Page-specific nodes; Organization + WebSite are always included. */
+  nodes?: (JsonLd | null | undefined)[];
+}
+const { nodes = [] } = Astro.props;
+---
+<script is:inline type="application/ld+json" set:html={toGraph([organizationSchema(), websiteSchema(), ...nodes])} />

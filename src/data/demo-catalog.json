@@ -1,0 +1,395 @@
+{
+  "categories": [
+    {
+      "id": "c0000000-0000-4000-8000-000000000001",
+      "slug": "apparel",
+      "name": "Apparel",
+      "parent_id": null
+    },
+    {
+      "id": "c0000000-0000-4000-8000-000000000002",
+      "slug": "footwear",
+      "name": "Footwear",
+      "parent_id": null
+    },
+    {
+      "id": "c0000000-0000-4000-8000-000000000003",
+      "slug": "accessories",
+      "name": "Accessories",
+      "parent_id": null
+    },
+    {
+      "id": "c0000000-0000-4000-8000-000000000004",
+      "slug": "home",
+      "name": "Home",
+      "parent_id": null
+    }
+  ],
+  "products": [
+    {
+      "id": "d0000000-0000-4000-8000-000000000001",
+      "slug": "classic-tee-black",
+      "title": "Classic Tee — Black",
+      "description": "Heavyweight 220 gsm organic cotton tee with a relaxed fit and reinforced collar.",
+      "sku": "CLASSIC-TEE-BLACK",
+      "brand": "Northline",
+      "price": 29,
+      "compare_at_price": 39,
+      "currency": "USD",
+      "stock": 25,
+      "images": [
+        "/demo/classic-tee-black.svg"
+      ],
+      "attributes": {
+        "color": "black",
+        "material": "organic cotton",
+        "fit": "relaxed",
+        "weight": "220 gsm"
+      },
+      "faqs": [
+        {
+          "question": "Does it shrink?",
+          "answer": "Pre-washed; expect under 2% shrinkage."
+        },
+        {
+          "question": "Is it true to size?",
+          "answer": "Yes. Between sizes, go one down for a slimmer fit."
+        }
+      ],
+      "category_id": "c0000000-0000-4000-8000-000000000001",
+      "is_active": true,
+      "created_at": "2026-09-02T09:00:00Z",
+      "updated_at": "2026-09-02T09:00:00Z",
+      "rating": 4.8,
+      "review_count": 128
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000002",
+      "slug": "linen-overshirt-sand",
+      "title": "Linen Overshirt — Sand",
+      "description": "Breathable European linen overshirt with two chest pockets. Wear open as a light layer.",
+      "sku": "LINEN-OVERSHIRT-SAND",
+      "brand": "Northline",
+      "price": 79,
+      "compare_at_price": null,
+      "currency": "USD",
+      "stock": 12,
+      "images": [
+        "/demo/linen-overshirt-sand.svg"
+      ],
+      "attributes": {
+        "color": "sand",
+        "material": "linen",
+        "fit": "regular"
+      },
+      "faqs": [
+        {
+          "question": "Machine washable?",
+          "answer": "Yes, cold cycle. Line dry to keep the texture."
+        }
+      ],
+      "category_id": "c0000000-0000-4000-8000-000000000001",
+      "is_active": true,
+      "created_at": "2026-09-03T09:00:00Z",
+      "updated_at": "2026-09-03T09:00:00Z",
+      "rating": 4.6,
+      "review_count": 54
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000003",
+      "slug": "merino-crew-navy",
+      "title": "Merino Crew — Navy",
+      "description": "Extra-fine 18.5 micron merino crewneck. Naturally odour-resistant, warm without bulk.",
+      "sku": "MERINO-CREW-NAVY",
+      "brand": "Alder & Co",
+      "price": 110,
+      "compare_at_price": 140,
+      "currency": "USD",
+      "stock": 8,
+      "images": [
+        "/demo/merino-crew-navy.svg"
+      ],
+      "attributes": {
+        "color": "navy",
+        "material": "merino wool",
+        "gauge": "12"
+      },
+      "faqs": [],
+      "category_id": "c0000000-0000-4000-8000-000000000001",
+      "is_active": true,
+      "created_at": "2026-09-04T09:00:00Z",
+      "updated_at": "2026-09-04T09:00:00Z",
+      "rating": 4.9,
+      "review_count": 77
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000004",
+      "slug": "selvedge-denim-indigo",
+      "title": "Selvedge Denim — Indigo",
+      "description": "14 oz Japanese selvedge denim, slim-straight cut, raw indigo that fades with wear.",
+      "sku": "SELVEDGE-DENIM-INDIGO",
+      "brand": "Alder & Co",
+      "price": 148,
+      "compare_at_price": null,
+      "currency": "USD",
+      "stock": 15,
+      "images": [
+        "/demo/selvedge-denim-indigo.svg"
+      ],
+      "attributes": {
+        "color": "indigo",
+        "material": "cotton denim",
+        "weight": "14 oz",
+        "fit": "slim straight"
+      },
+      "faqs": [
+        {
+          "question": "Should I wash raw denim?",
+          "answer": "Wait 3–6 months for the best fades, then wash inside-out in cold water."
+        }
+      ],
+      "category_id": "c0000000-0000-4000-8000-000000000001",
+      "is_active": true,
+      "created_at": "2026-09-05T09:00:00Z",
+      "updated_at": "2026-09-05T09:00:00Z",
+      "rating": 4.7,
+      "review_count": 203
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000005",
+      "slug": "trail-runner-olive",
+      "title": "Trail Runner — Olive",
+      "description": "Lightweight trail shoe with a grippy 4 mm lug outsole and rock plate.",
+      "sku": "TRAIL-RUNNER-OLIVE",
+      "brand": "Kestrel",
+      "price": 129,
+      "compare_at_price": 159,
+      "currency": "USD",
+      "stock": 20,
+      "images": [
+        "/demo/trail-runner-olive.svg"
+      ],
+      "attributes": {
+        "color": "olive",
+        "drop": "6 mm",
+        "weight": "280 g",
+        "use": "trail"
+      },
+      "faqs": [
+        {
+          "question": "Waterproof?",
+          "answer": "Water-resistant upper; not fully waterproof."
+        }
+      ],
+      "category_id": "c0000000-0000-4000-8000-000000000002",
+      "is_active": true,
+      "created_at": "2026-09-06T09:00:00Z",
+      "updated_at": "2026-09-06T09:00:00Z",
+      "rating": 4.5,
+      "review_count": 88
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000006",
+      "slug": "leather-derby-brown",
+      "title": "Leather Derby — Brown",
+      "description": "Full-grain leather derby with a Goodyear-welted sole. Resolable.",
+      "sku": "LEATHER-DERBY-BROWN",
+      "brand": "Kestrel",
+      "price": 189,
+      "compare_at_price": null,
+      "currency": "USD",
+      "stock": 6,
+      "images": [
+        "/demo/leather-derby-brown.svg"
+      ],
+      "attributes": {
+        "color": "brown",
+        "material": "full-grain leather",
+        "construction": "Goodyear welt"
+      },
+      "faqs": [],
+      "category_id": "c0000000-0000-4000-8000-000000000002",
+      "is_active": true,
+      "created_at": "2026-09-07T09:00:00Z",
+      "updated_at": "2026-09-07T09:00:00Z",
+      "rating": 4.8,
+      "review_count": 41
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000007",
+      "slug": "canvas-sneaker-white",
+      "title": "Canvas Sneaker — White",
+      "description": "Classic low-top canvas sneaker with natural rubber sole.",
+      "sku": "CANVAS-SNEAKER-WHITE",
+      "brand": "Northline",
+      "price": 59,
+      "compare_at_price": null,
+      "currency": "USD",
+      "stock": 0,
+      "images": [
+        "/demo/canvas-sneaker-white.svg"
+      ],
+      "attributes": {
+        "color": "white",
+        "material": "canvas"
+      },
+      "faqs": [],
+      "category_id": "c0000000-0000-4000-8000-000000000002",
+      "is_active": true,
+      "created_at": "2026-09-08T09:00:00Z",
+      "updated_at": "2026-09-08T09:00:00Z",
+      "rating": 4.2,
+      "review_count": 19
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000008",
+      "slug": "canvas-tote-natural",
+      "title": "Canvas Tote — Natural",
+      "description": "16 oz canvas tote with reinforced handles and an inner zip pocket.",
+      "sku": "CANVAS-TOTE-NATURAL",
+      "brand": "Northline",
+      "price": 24,
+      "compare_at_price": null,
+      "currency": "USD",
+      "stock": 40,
+      "images": [
+        "/demo/canvas-tote-natural.svg"
+      ],
+      "attributes": {
+        "color": "natural",
+        "material": "canvas",
+        "capacity": "15 L"
+      },
+      "faqs": [
+        {
+          "question": "Can it carry a laptop?",
+          "answer": "Yes, up to 15 inch."
+        }
+      ],
+      "category_id": "c0000000-0000-4000-8000-000000000003",
+      "is_active": true,
+      "created_at": "2026-09-09T09:00:00Z",
+      "updated_at": "2026-09-09T09:00:00Z",
+      "rating": 4.7,
+      "review_count": 312
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000009",
+      "slug": "field-watch-steel",
+      "title": "Field Watch — Steel",
+      "description": "38 mm brushed steel field watch, Swiss quartz movement, sapphire crystal, 100 m water resistance.",
+      "sku": "FIELD-WATCH-STEEL",
+      "brand": "Meridian",
+      "price": 220,
+      "compare_at_price": 260,
+      "currency": "USD",
+      "stock": 9,
+      "images": [
+        "/demo/field-watch-steel.svg"
+      ],
+      "attributes": {
+        "case": "38 mm",
+        "movement": "Swiss quartz",
+        "crystal": "sapphire",
+        "water_resistance": "100 m"
+      },
+      "faqs": [
+        {
+          "question": "Does it glow in the dark?",
+          "answer": "Yes, Super-LumiNova on hands and indices."
+        }
+      ],
+      "category_id": "c0000000-0000-4000-8000-000000000003",
+      "is_active": true,
+      "created_at": "2026-09-10T09:00:00Z",
+      "updated_at": "2026-09-10T09:00:00Z",
+      "rating": 4.9,
+      "review_count": 64
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000010",
+      "slug": "wool-beanie-charcoal",
+      "title": "Wool Beanie — Charcoal",
+      "description": "Ribbed lambswool beanie, one size.",
+      "sku": "WOOL-BEANIE-CHARCOAL",
+      "brand": "Alder & Co",
+      "price": 32,
+      "compare_at_price": null,
+      "currency": "USD",
+      "stock": 30,
+      "images": [
+        "/demo/wool-beanie-charcoal.svg"
+      ],
+      "attributes": {
+        "color": "charcoal",
+        "material": "lambswool"
+      },
+      "faqs": [],
+      "category_id": "c0000000-0000-4000-8000-000000000003",
+      "is_active": true,
+      "created_at": "2026-09-11T09:00:00Z",
+      "updated_at": "2026-09-11T09:00:00Z",
+      "rating": 4.4,
+      "review_count": 27
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000011",
+      "slug": "ceramic-pour-over-set",
+      "title": "Ceramic Pour-Over Set",
+      "description": "Stoneware dripper and 600 ml server. Fits standard #2 filters.",
+      "sku": "CERAMIC-POUR-OVER-SET",
+      "brand": "Hearth",
+      "price": 64,
+      "compare_at_price": null,
+      "currency": "USD",
+      "stock": 14,
+      "images": [
+        "/demo/ceramic-pour-over-set.svg"
+      ],
+      "attributes": {
+        "material": "stoneware",
+        "capacity": "600 ml",
+        "color": "oat"
+      },
+      "faqs": [
+        {
+          "question": "Dishwasher safe?",
+          "answer": "Yes, both pieces."
+        }
+      ],
+      "category_id": "c0000000-0000-4000-8000-000000000004",
+      "is_active": true,
+      "created_at": "2026-09-12T09:00:00Z",
+      "updated_at": "2026-09-12T09:00:00Z",
+      "rating": 4.6,
+      "review_count": 95
+    },
+    {
+      "id": "d0000000-0000-4000-8000-000000000012",
+      "slug": "linen-throw-rust",
+      "title": "Linen Throw — Rust",
+      "description": "Stonewashed linen throw, 130 × 180 cm. Gets softer with every wash.",
+      "sku": "LINEN-THROW-RUST",
+      "brand": "Hearth",
+      "price": 89,
+      "compare_at_price": 119,
+      "currency": "USD",
+      "stock": 11,
+      "images": [
+        "/demo/linen-throw-rust.svg"
+      ],
+      "attributes": {
+        "material": "linen",
+        "size": "130 × 180 cm",
+        "color": "rust"
+      },
+      "faqs": [],
+      "category_id": "c0000000-0000-4000-8000-000000000004",
+      "is_active": true,
+      "created_at": "2026-09-13T09:00:00Z",
+      "updated_at": "2026-09-13T09:00:00Z",
+      "rating": 4.8,
+      "review_count": 58
+    }
+  ]
+}

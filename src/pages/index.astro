@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Browse from '../components/ecom/Browse.astro';
+import Hero from '../components/home/Hero.astro';
+import UspStrip from '../components/home/UspStrip.astro';
+import CategoryCircles from '../components/home/CategoryCircles.astro';
+import ProductRail from '../components/home/ProductRail.astro';
+import PromoBanner from '../components/home/PromoBanner.astro';
+import Testimonials from '../components/home/Testimonials.astro';
+import { listCategories, listProducts, type ListOpts } from '../lib/catalog';
+import { HOME_RAIL_SIZE, ROUTES, SITE } from '../config/constants';
+
+const sp = Astro.url.searchParams;
+const filters = {
+  q: sp.get('q') ?? undefined,
+  category: sp.get('category') ?? undefined,
+  sale: sp.has('sale'),
+  sort: (sp.get('sort') as ListOpts['sort']) ?? undefined,
+  page: Math.max(1, Number(sp.get('page') ?? 1)),
+};
+/** Any filter present → listing view; bare `/` → landing page. */
+const browsing = Boolean(filters.q || filters.category || filters.sale || filters.sort || sp.has('page'));
+
+const categories = await listCategories();
+const [best, fresh, deals] = browsing
+  ? []
+  : await Promise.all([
+      listProducts({ sort: 'popular', limit: HOME_RAIL_SIZE }),
+      listProducts({ sort: 'new', limit: HOME_RAIL_SIZE }),
+      listProducts({ sale: true, sort: 'popular', limit: 1 }),
+    ]);
+const title = browsing ? (filters.q ? `Search: ${filters.q}` : filters.sale ? 'Sale' : 'Shop') : SITE.name;
+---
+<BaseLayout title={title}>
+  {browsing ? (
+    <Browse categories={categories} {...filters} />
+  ) : (
+    <div class="space-y-14">
+      <Hero featured={best!.items[0]} />
+      <UspStrip />
+      <CategoryCircles categories={categories} />
+      <ProductRail title="Best selling products" href={ROUTES.shop} products={best!.items} />
+      <PromoBanner product={deals!.items[0]} />
+      <ProductRail title="New arrivals" href={ROUTES.newArrivals} products={fresh!.items} />
+      <Testimonials />
+    </div>
+  )}
+</BaseLayout>

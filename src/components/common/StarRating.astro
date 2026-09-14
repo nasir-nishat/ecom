@@ -1,0 +1,17 @@
+---
+/** Read-only stars using daisyUI `rating` + `mask-star-2`. */
+interface Props { rating: number | null; count?: number; size?: 'xs' | 'sm' }
+const { rating, count, size = 'xs' } = Astro.props;
+const value = Math.round((rating ?? 0) * 2) / 2;
+---
+{rating != null && (
+  <div class="flex flex-wrap items-center gap-x-1.5 text-xs">
+    <div class:list={['rating rating-half', `rating-${size}`]} aria-label={`Rated ${rating} out of 5`}>
+      {Array.from({ length: 10 }, (_, i) => (
+        <div class:list={['mask mask-star-2 bg-warning', i % 2 === 0 ? 'mask-half-1' : 'mask-half-2']} aria-hidden="true" style={{ opacity: (i + 1) / 2 <= value ? 1 : 0.25 }} />
+      ))}
+    </div>
+    <span class="font-medium">{rating.toFixed(1)}</span>
+    {count != null && <span class="opacity-60">({count})</span>}
+  </div>
+)}

@@ -1,0 +1,12 @@
+---
+import { USPS } from '../../config/constants';
+import Icon from '../common/Icon.astro';
+---
+<section class="rounded-box border border-base-300 bg-base-100 grid grid-cols-2 lg:grid-cols-4 gap-y-6 p-6">
+  {USPS.map((u) => (
+    <div class="flex items-center gap-3">
+      <span class="grid place-items-center size-11 rounded-full bg-base-200 text-primary shrink-0"><Icon name={u.icon} /></span>
+      <div><p class="font-semibold text-sm">{u.title}</p><p class="text-xs text-base-content/60">{u.text}</p></div>
+    </div>
+  ))}
+</section>

@@ -1,0 +1,60 @@
+---
+import { ROUTES, SITE } from '../../config/constants';
+import CartDrawer from '../ecom/CartDrawer';
+import DemoBadge from './DemoBadge.astro';
+import Icon from './Icon.astro';
+import type { Category } from '../../types/ecom';
+
+interface Props { categories?: Category[] }
+const { categories = [] } = Astro.props;
+const q = Astro.url.searchParams.get('q') ?? '';
+const nav = [
+  { href: ROUTES.home, label: 'Home' },
+  { href: ROUTES.shop, label: 'Shop' },
+  { href: ROUTES.newArrivals, label: 'New arrivals' },
+  { href: ROUTES.sale, label: 'Sale' },
+];
+---
+{SITE.announcement && (
+  <div class="bg-primary text-primary-content text-center text-xs py-2 px-4">{SITE.announcement}</div>
+)}
+<header class="bg-base-100 border-b border-base-300 sticky top-0 z-30">
+  <div class="navbar container mx-auto px-4 gap-2">
+    <div class="flex-none flex items-center gap-1">
+      <div class="dropdown lg:hidden">
+        <button tabindex="0" class="btn btn-ghost btn-sm btn-square" aria-label="Menu"><Icon name="Menu" /></button>
+        <ul tabindex="0" class="menu dropdown-content bg-base-100 border border-base-300 rounded-box z-40 mt-2 w-56 p-2">
+          {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+          {categories.length > 0 && <li><h2 class="menu-title">Categories</h2><ul>{categories.map((c) => <li><a href={ROUTES.category(c.id)}>{c.name}</a></li>)}</ul></li>}
+        </ul>
+      </div>
+      <a href={ROUTES.home} class="font-display text-2xl font-semibold tracking-tight px-1">{SITE.name}</a>
+      <DemoBadge />
+    </div>
+
+    <nav class="hidden lg:flex flex-1 justify-center">
+      <ul class="menu menu-horizontal px-1 text-sm font-medium">
+        {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        {categories.length > 0 && (
+          <li>
+            <details>
+              <summary>Categories</summary>
+              <ul class="bg-base-100 border border-base-300 rounded-box w-52 p-2 z-40">{categories.map((c) => <li><a href={ROUTES.category(c.id)}>{c.name}</a></li>)}</ul>
+            </details>
+          </li>
+        )}
+      </ul>
+    </nav>
+
+    <div class="flex-1 lg:flex-none flex items-center justify-end gap-1">
+      <form action={ROUTES.home} method="get" role="search" class="hidden sm:block">
+        <label class="input input-sm w-44 lg:w-56 border-base-300">
+          <Icon name="Search" size={16} class="opacity-50" />
+          <input type="search" name="q" value={q} placeholder="Search…" aria-label="Search products" />
+        </label>
+      </form>
+      <a href={ROUTES.login} class="btn btn-ghost btn-sm btn-square" aria-label="Account"><Icon name="User" /></a>
+      <CartDrawer client:load />
+    </div>
+  </div>
+</header>

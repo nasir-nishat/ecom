@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+import Header from '../components/common/Header.astro';
+import Footer from '../components/common/Footer.astro';
+import SchemaOrg from '../components/common/SchemaOrg.astro';
+import { SITE } from '../config/constants';
+import type { JsonLd } from '../lib/geo-schema';
+import { listCategories } from '../lib/catalog';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  /** Extra JSON-LD nodes for this page (Product, FAQPage, BreadcrumbList…). */
+  schema?: (JsonLd | null | undefined)[];
+  noindex?: boolean;
+}
+const { title, description = SITE.description, image, schema = [], noindex = false } = Astro.props;
+const categories = await listCategories().catch(() => []);
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const fullTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+    <link rel="alternate" type="application/json" href="/api/v1/mcp-catalog.json" title="Machine-readable catalog" />
+    <SchemaOrg nodes={schema} />
+    <slot name="head" />
+  </head>
+  <body class="min-h-dvh flex flex-col bg-base-100 text-base-content">
+    <Header categories={categories} />
+    <main class="flex-1 container mx-auto px-4 py-6 w-full max-w-7xl">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,24 @@
+---
+import testimonials from '../../data/testimonials.json';
+import Icon from '../common/Icon.astro';
+import StarRating from '../common/StarRating.astro';
+---
+{testimonials.length > 0 && (
+  <section>
+    <h2 class="font-display text-2xl sm:text-3xl font-medium text-center mb-8">What our customers say</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      {testimonials.map((t) => (
+        <figure class="card bg-base-200">
+          <div class="card-body gap-4">
+            <Icon name="Quote" size={22} class="text-primary" />
+            <blockquote class="text-sm leading-relaxed">{t.text}</blockquote>
+            <figcaption class="flex items-center gap-3 mt-auto">
+              <div class="avatar avatar-placeholder"><div class="bg-base-100 w-9 rounded-full"><span class="text-xs font-semibold">{t.name[0]}</span></div></div>
+              <div><p class="text-sm font-medium">{t.name}</p><StarRating rating={t.rating} /></div>
+            </figcaption>
+          </div>
+        </figure>
+      ))}
+    </div>
+  </section>
+)}

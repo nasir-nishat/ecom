@@ -1,0 +1,37 @@
+---
+import { HERO } from '../../config/constants';
+import Icon from '../common/Icon.astro';
+import type { Product } from '../../types/ecom';
+
+interface Props { featured?: Product }
+const { featured } = Astro.props;
+---
+<section class="rounded-box bg-base-200 overflow-hidden">
+  <div class="grid md:grid-cols-2 items-center gap-8 p-6 sm:p-10 lg:p-14">
+    <div class="space-y-6">
+      <span class="badge badge-outline badge-sm gap-2 border-base-300 bg-base-100"><span class="size-1.5 rounded-full bg-primary"></span>{HERO.eyebrow}</span>
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.05] font-medium text-balance">{HERO.title}</h1>
+      <p class="text-base-content/70 max-w-md">{HERO.subtitle}</p>
+      <div class="flex flex-wrap gap-3">
+        <a href={HERO.primaryCta.href} class="btn btn-primary">{HERO.primaryCta.label} <Icon name="ArrowRight" size={16} /></a>
+        <a href={HERO.secondaryCta.href} class="btn bg-base-100 border-base-300">{HERO.secondaryCta.label}</a>
+      </div>
+      <div class="flex items-center gap-3 text-sm text-base-content/70">
+        <div class="avatar-group -space-x-3">
+          {['A', 'M', 'S', 'J'].map((l) => (
+            <div class="avatar avatar-placeholder"><div class="bg-primary/15 text-primary w-8 border-base-200"><span class="text-xs font-semibold">{l}</span></div></div>
+          ))}
+        </div>
+        <span>{HERO.trust}</span>
+      </div>
+    </div>
+
+    <div class="relative aspect-square max-h-[460px] w-full mx-auto">
+      {featured && (
+        <a href={`/product/${featured.slug}`} class="absolute inset-[4%] bottom-[8%] rounded-full overflow-hidden ring-8 ring-base-100/80">
+          <img src={featured.images[0]} alt={featured.title} class="size-full object-cover" fetchpriority="high" />
+        </a>
+      )}
+    </div>
+  </div>
+</section>

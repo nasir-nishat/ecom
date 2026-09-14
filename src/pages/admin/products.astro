@@ -1,0 +1,55 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import ProductForm from '../../components/admin/ProductForm';
+import { adminListCategories, adminListProducts } from '../../lib/admin';
+import { SITE } from '../../config/constants';
+import { formatPrice } from '../../lib/format';
+
+const editId = Astro.url.searchParams.get('id');
+const creating = Astro.url.searchParams.has('new');
+
+const [products, categories] = await Promise.all([adminListProducts(Astro.request, Astro.cookies), adminListCategories(Astro.request, Astro.cookies)]);
+const editing = editId ? products.find((p) => p.id === editId) : undefined;
+---
+<AdminLayout title="Products">
+  {creating || editing ? (
+    <div class="card bg-base-100 border border-base-300">
+      <div class="card-body">
+        <div class="flex items-center justify-between">
+          <h2 class="card-title">{editing ? `Edit: ${editing.title}` : 'New product'}</h2>
+          <a href="/admin/products" class="btn btn-ghost btn-sm">Back to list</a>
+        </div>
+        <ProductForm client:load product={editing} categories={categories} currency={SITE.currency} />
+      </div>
+    </div>
+  ) : (
+    <div class="card bg-base-100 border border-base-300">
+      <div class="card-body p-0">
+        <div class="flex items-center justify-between p-4">
+          <span class="text-sm opacity-60">{products.length} products</span>
+          <a href="/admin/products?new" class="btn btn-primary btn-sm">New product</a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="table">
+            <thead><tr><th>Product</th><th>SKU</th><th>Price</th><th>Stock</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              {products.map((p) => (
+                <tr>
+                  <td class="flex items-center gap-3">
+                    {p.images[0] ? <img src={p.images[0]} alt="" class="size-10 rounded object-cover" /> : <div class="size-10 rounded bg-base-200" />}
+                    <a href={`/product/${p.slug}`} class="link link-hover font-medium" target="_blank">{p.title}</a>
+                  </td>
+                  <td class="font-mono text-xs">{p.sku}</td>
+                  <td>{formatPrice(p.price, p.currency)}</td>
+                  <td class:list={{ 'text-error': p.stock <= 5 }}>{p.stock}</td>
+                  <td><span class:list={['badge badge-sm', p.is_active ? 'badge-success' : 'badge-ghost']}>{p.is_active ? 'Active' : 'Hidden'}</span></td>
+                  <td><a href={`/admin/products?id=${p.id}`} class="btn btn-ghost btn-xs">Edit</a></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  )}
+</AdminLayout>

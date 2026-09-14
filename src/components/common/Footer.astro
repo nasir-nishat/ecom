@@ -1,0 +1,46 @@
+---
+import { ROUTES, SITE, USPS } from '../../config/constants';
+import Icon from './Icon.astro';
+import Newsletter from './Newsletter';
+---
+<footer class="bg-base-200 mt-20">
+  <div class="container mx-auto px-4 py-12">
+    <div class="footer sm:footer-horizontal">
+      <aside class="max-w-xs space-y-3">
+        <a href={ROUTES.home} class="font-display text-2xl font-semibold">{SITE.name}</a>
+        <p class="text-sm text-base-content/70">{SITE.description}</p>
+        <div class="flex gap-1">
+          {Object.entries(SITE.social).map(([k, href]) => (
+            <a href={href} class="btn btn-ghost btn-sm btn-square" aria-label={k}><Icon name={k[0].toUpperCase() + k.slice(1)} size={18} /></a>
+          ))}
+        </div>
+      </aside>
+      <nav>
+        <h6 class="footer-title">Quick links</h6>
+        <a class="link link-hover" href={ROUTES.home}>Home</a>
+        <a class="link link-hover" href={ROUTES.shop}>Shop</a>
+        <a class="link link-hover" href={ROUTES.sale}>Sale</a>
+        <a class="link link-hover" href={ROUTES.login}>Account</a>
+      </nav>
+      <nav>
+        <h6 class="footer-title">Customer service</h6>
+        {USPS.map((u) => <span class="text-sm text-base-content/70">{u.title} · {u.text}</span>)}
+      </nav>
+      <nav>
+        <h6 class="footer-title">For AI agents</h6>
+        <a class="link link-hover" href={ROUTES.mcpCatalog}>Catalog JSON</a>
+        <a class="link link-hover" href="/llms.txt">llms.txt</a>
+        <a class="link link-hover" href="/sitemap.xml">Sitemap</a>
+      </nav>
+      <div class="max-w-xs">
+        <h6 class="footer-title">Subscribe to our newsletter</h6>
+        <p class="text-sm text-base-content/70 mb-3">Get updates on new products and upcoming sales.</p>
+        <Newsletter client:visible />
+      </div>
+    </div>
+    <div class="border-t border-base-300 mt-10 pt-6 text-xs text-base-content/60 flex flex-wrap justify-between gap-2">
+      <span>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</span>
+      <span>Built for humans and AI shopping agents.</span>
+    </div>
+  </div>
+</footer>

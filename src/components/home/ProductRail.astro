@@ -1,0 +1,16 @@
+---
+import ProductCard from '../ecom/ProductCard.astro';
+import SectionHeading from './SectionHeading.astro';
+import type { Product } from '../../types/ecom';
+
+interface Props { title: string; href?: string; products: Product[]; cols?: 4 | 5 }
+const { title, href, products, cols = 5 } = Astro.props;
+---
+{products.length > 0 && (
+  <section>
+    <SectionHeading title={title} href={href} linkLabel="View all products" />
+    <div class:list={['grid grid-cols-2 md:grid-cols-3 gap-4', cols === 5 ? 'lg:grid-cols-5' : 'lg:grid-cols-4']}>
+      {products.map((p) => <ProductCard product={p} />)}
+    </div>
+  </section>
+)}

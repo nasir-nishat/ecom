@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductGallery from '../../components/ecom/ProductGallery.astro';
+import AddToCart from '../../components/ecom/AddToCart';
+import { getProductBySlug } from '../../lib/catalog';
+import { breadcrumbSchema, faqSchema, productSchema } from '../../lib/geo-schema';
+import { formatPrice } from '../../lib/format';
+import StarRating from '../../components/common/StarRating.astro';
+import UspStrip from '../../components/home/UspStrip.astro';
+import ProductRail from '../../components/home/ProductRail.astro';
+import { listProducts } from '../../lib/catalog';
+import { ROUTES } from '../../config/constants';
+
+const product = await getProductBySlug(Astro.params.slug!);
+if (!product) return Astro.rewrite('/404');
+
+const schema = [productSchema(product), faqSchema(product), breadcrumbSchema([{ name: 'Home', path: '/' }, { name: product.title, path: Astro.url.pathname }])];
+const attrs = Object.entries(product.attributes ?? {});
+const related = (await listProducts({ category: product.category_id ?? undefined, sort: 'popular', limit: 5 })).items.filter((p) => p.id !== product.id).slice(0, 4);
+const off = product.compare_at_price && product.compare_at_price > product.price ? Math.round((1 - product.price / product.compare_at_price) * 100) : 0;
+---
+<BaseLayout title={product.title} description={product.description.slice(0, 160)} image={product.images[0]} schema={schema}>
+  <div class="breadcrumbs text-sm mb-4">
+    <ul><li><a href="/">Home</a></li><li>{product.title}</li></ul>
+  </div>
+
+  <div class="grid gap-8 md:grid-cols-2">
+    <ProductGallery images={product.images} alt={product.title} />
+
+    <section class="space-y-4">
+      {product.brand && <p class="text-sm opacity-60">{product.brand}</p>}
+      <h1 class="font-display text-3xl sm:text-4xl font-medium">{product.title}</h1>
+      <StarRating rating={product.rating} count={product.review_count} size="sm" />
+      <div class="flex items-baseline gap-3">
+        <span class="text-3xl font-semibold">{formatPrice(product.price, product.currency)}</span>
+        {off > 0 && <s class="opacity-50">{formatPrice(product.compare_at_price!, product.currency)}</s>}
+        {off > 0 && <span class="badge badge-primary">-{off}%</span>}
+      </div>
+      <p class="text-sm" data-stock={product.stock}>
+        {product.stock > 0 ? <span class="text-success">In stock ({product.stock})</span> : <span class="text-error">Out of stock</span>}
+        <span class="opacity-60"> · SKU {product.sku}</span>
+      </p>
+      <AddToCart client:load product={product} />
+
+      <p class="text-base-content/75 leading-relaxed">{product.description}</p>
+
+      {attrs.length > 0 && (
+        <table class="table table-sm">
+          <tbody>{attrs.map(([k, v]) => <tr><th class="capitalize">{k.replace(/_/g, ' ')}</th><td>{String(v)}</td></tr>)}</tbody>
+        </table>
+      )}
+
+      {product.faqs?.length > 0 && (
+        <div class="space-y-2">
+          <h2 class="font-semibold">FAQ</h2>
+          {product.faqs.map((f) => (
+            <details class="collapse collapse-arrow border border-base-300">
+              <summary class="collapse-title font-medium">{f.question}</summary>
+              <div class="collapse-content text-sm">{f.answer}</div>
+            </details>
+          ))}
+        </div>
+      )}
+    </section>
+  </div>
+
+  <div class="mt-14 space-y-14">
+    <UspStrip />
+    <ProductRail title="You may also like" href={product.category_id ? ROUTES.category(product.category_id) : ROUTES.shop} products={related} cols={4} />
+  </div>
+</BaseLayout>

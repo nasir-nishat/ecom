@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AuthForm from '../components/common/AuthForm';
+import { ROUTES } from '../config/constants';
+---
+<BaseLayout title="Create account" noindex>
+  <div class="card bg-base-100 border border-base-300 max-w-sm mx-auto">
+    <div class="card-body">
+      <h1 class="card-title">Create account</h1>
+      <AuthForm client:load mode="register" />
+      <p class="text-sm text-center mt-2">Already registered? <a href={ROUTES.login} class="link">Sign in</a></p>
+    </div>
+  </div>
+</BaseLayout>

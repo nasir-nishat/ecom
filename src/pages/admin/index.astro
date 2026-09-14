@@ -1,0 +1,18 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { adminStats } from '../../lib/admin';
+
+const s = await adminStats(Astro.request, Astro.cookies);
+const stats = [
+  { label: 'Products', value: s.products },
+  { label: 'Low stock (≤5)', value: s.lowStock },
+  { label: 'Inquiries', value: s.inquiries },
+];
+---
+<AdminLayout title="Dashboard">
+  <div class="stats stats-vertical sm:stats-horizontal bg-base-100 border border-base-300 w-full">
+    {stats.map((s) => (
+      <div class="stat"><div class="stat-title">{s.label}</div><div class="stat-value">{s.value}</div></div>
+    ))}
+  </div>
+</AdminLayout>

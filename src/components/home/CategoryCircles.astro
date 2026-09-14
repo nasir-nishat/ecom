@@ -1,0 +1,35 @@
+---
+import { ROUTES } from '../../config/constants';
+import Icon from '../common/Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import type { Category } from '../../types/ecom';
+
+interface Props { categories: Category[] }
+const { categories } = Astro.props;
+
+/** slug/name → Lucide icon. Falls back to the category initial. */
+const ICONS: [RegExp, string][] = [
+  [/appar|cloth|fashion|wear|shirt/i, 'Shirt'], [/shoe|foot|sneak/i, 'Footprints'], [/watch|access|jewel/i, 'Watch'],
+  [/home|kitchen|living/i, 'Armchair'], [/beauty|skin|care/i, 'Sparkles'], [/electr|tech|gadget/i, 'Headphones'],
+  [/sport|fit|gym/i, 'Dumbbell'], [/kid|baby|toy/i, 'Baby'], [/bag|tote/i, 'ShoppingBag'], [/sale|deal/i, 'Tag'],
+];
+const iconFor = (c: Category) => ICONS.find(([re]) => re.test(`${c.slug} ${c.name}`))?.[1];
+const TINTS = ['bg-sky-100 text-sky-800', 'bg-rose-100 text-rose-800', 'bg-amber-100 text-amber-800', 'bg-violet-100 text-violet-800', 'bg-emerald-100 text-emerald-800', 'bg-orange-100 text-orange-800'];
+---
+{categories.length > 0 && (
+  <section>
+    <SectionHeading title="Shop by categories" href={ROUTES.shop} linkLabel="View all categories" />
+    <ul class="flex gap-6 overflow-x-auto pb-2 sm:grid sm:grid-cols-3 md:grid-cols-6 sm:overflow-visible">
+      {categories.filter((c) => !c.parent_id).map((c, i) => (
+        <li class="shrink-0 w-28 sm:w-auto text-center">
+          <a href={ROUTES.category(c.id)} class="group block space-y-3">
+            <span class:list={['mx-auto grid place-items-center size-24 sm:size-28 rounded-full transition-transform group-hover:scale-105', TINTS[i % TINTS.length]]}>
+              {iconFor(c) ? <Icon name={iconFor(c)!} size={40} class="opacity-80" /> : <span class="font-display text-3xl">{c.name[0]}</span>}
+            </span>
+            <span class="block text-sm font-medium">{c.name}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
